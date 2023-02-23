@@ -24,6 +24,7 @@
 
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const refs = {
   datetimeInput: document.querySelector('#datetime-picker'),
@@ -34,6 +35,10 @@ const refs = {
   secondsValue: document.querySelector('span[data-seconds]'),
 };
 refs.startBtn.disabled = true;
+
+Notify.init({
+  clickToClose: true,
+});
 
 const options = {
   enableTime: true,
@@ -53,7 +58,8 @@ function checkDate() {
   const isDateValid = Date.now() < calendar.selectedDates[0];
 
   if (!isDateValid) {
-    alert('Please choose a date in the future');
+    Notify.warning('Please choose a date in the future!');
+    // alert('Please choose a date in the future');
     console.log('isDateValid: ', isDateValid, '\nError! This date is invalid.');
     return;
   }
@@ -64,6 +70,7 @@ function checkDate() {
 
 function onStartBntClick() {
   intervalID = setInterval(handler, 1000);
+  console.log('Count started...');
 
   refs.startBtn.removeEventListener('click', onStartBntClick);
   refs.startBtn.disabled = true;
