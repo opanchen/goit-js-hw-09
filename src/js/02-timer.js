@@ -38,6 +38,7 @@ refs.startBtn.disabled = true;
 
 Notify.init({
   clickToClose: true,
+  cssAnimationDuration: 1000,
 });
 
 const options = {
@@ -71,6 +72,8 @@ function checkDate() {
 function onStartBntClick() {
   intervalID = setInterval(handler, 1000);
   console.log('Count started...');
+
+  Notify.info('Reload the page, if you want to set new countdown.');
 
   refs.startBtn.removeEventListener('click', onStartBntClick);
   refs.startBtn.disabled = true;
